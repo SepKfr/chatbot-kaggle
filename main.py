@@ -47,8 +47,8 @@ train_df, val_df = train_test_split(df, test_size=0.1, random_state=42)
 train_dataset = ChatbotDataset(train_df, tokenizer)
 val_dataset = ChatbotDataset(val_df, tokenizer)
 
-train_loader = DataLoader(train_dataset, batch_size=36, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=36)
+train_loader = DataLoader(train_dataset, batch_size=128, shuffle=True)
+val_loader = DataLoader(val_dataset, batch_size=128)
 
 # Training setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
