@@ -43,12 +43,12 @@ tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
 model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=3)
 
 # Prepare dataset and dataloaders
-train_df, val_df = train_test_split(df, test_size=0.1, random_state=42)
+train_df, val_df = train_test_split(df, test_size=0.3, random_state=42)
 train_dataset = ChatbotDataset(train_df, tokenizer)
 val_dataset = ChatbotDataset(val_df, tokenizer)
 
-train_loader = DataLoader(train_dataset, batch_size=128, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=128)
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+val_loader = DataLoader(val_dataset, batch_size=32)
 
 # Training setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
