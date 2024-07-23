@@ -39,8 +39,8 @@ class ChatbotDataset(Dataset):
         }
 
 
-tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
-model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=3)
+tokenizer = AutoTokenizer.from_pretrained("gpt-3")
+model = AutoModelForSequenceClassification.from_pretrained("gpt-3", num_labels=3)
 
 # Unfreeze the specified parameters
 for name, param in model.named_parameters():
