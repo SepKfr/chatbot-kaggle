@@ -1,7 +1,7 @@
 import torch
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, AdamW
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from torch.utils.data import DataLoader, Dataset
 
 df = pd.read_csv('train.csv')
@@ -53,7 +53,7 @@ val_loader = DataLoader(val_dataset, batch_size=36)
 # Training setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model.to(device)
-optimizer = AdamW(model.parameters(), lr=2e-5)
+optimizer = torch.optim.AdamW(model.parameters(), lr=2e-5)
 
 # Training loop
 num_epochs = 10
