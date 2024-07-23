@@ -42,6 +42,13 @@ class ChatbotDataset(Dataset):
 tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
 model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=3)
 
+# Unfreeze the specified parameters
+for name, param in model.named_parameters():
+    if name in ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']:
+        param.requires_grad = True
+    else:
+        param.requires_grad = False
+
 # Prepare dataset and dataloaders
 train_df, val_df = train_test_split(df, test_size=0.3, random_state=42)
 train_dataset = ChatbotDataset(train_df, tokenizer)
@@ -53,7 +60,7 @@ val_loader = DataLoader(val_dataset, batch_size=32)
 # Training setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model.to(device)
-optimizer = torch.optim.AdamW(model.parameters(), lr=2e-5)
+optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=5e-5)
 
 # Training loop
 num_epochs = 10
