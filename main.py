@@ -39,8 +39,8 @@ class ChatbotDataset(Dataset):
         }
 
 
-tokenizer = AutoTokenizer.from_pretrained("gpt-3")
-model = AutoModelForSequenceClassification.from_pretrained("gpt-3", num_labels=3)
+tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large")
+model = AutoModelForSequenceClassification.from_pretrained("facebook/bart-large", num_labels=3)
 
 # Unfreeze the specified parameters
 for name, param in model.named_parameters():
