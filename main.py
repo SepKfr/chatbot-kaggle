@@ -65,9 +65,13 @@ optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters(
 # Training loop
 num_epochs = 10
 for epoch in range(num_epochs):
+
     model.train()
+
     print("training....")
+
     for batch in train_loader:
+
         input_ids = batch['input_ids'].to(device)
         attention_mask = batch['attention_mask'].to(device)
         labels = batch['labels'].to(device)
@@ -82,13 +86,17 @@ for epoch in range(num_epochs):
     val_loss = 0
     total = 0
     correct = 0
+
     with torch.no_grad():
+
         for batch in val_loader:
+
             input_ids = batch['input_ids'].to(device)
             attention_mask = batch['attention_mask'].to(device)
             labels = batch['labels'].to(device)
 
             outputs = model(input_ids, attention_mask=attention_mask, labels=labels)
+            print(outputs.logits)
             val_loss += outputs.loss.item()
 
             _, predicted = torch.max(outputs.logits, 1)
