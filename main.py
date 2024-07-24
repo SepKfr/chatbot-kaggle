@@ -10,10 +10,11 @@ test_df = pd.read_csv('test.csv')
 
 class ChatbotDataset(Dataset):
 
-    def __init__(self, data, tokenizer, max_length=384):
+    def __init__(self, data, tokenizer, test=False, max_length=384):
         self.data = data
         self.tokenizer = tokenizer
         self.max_length = max_length
+        self.test = test
 
     def __len__(self):
         return len(self.data)
@@ -26,7 +27,10 @@ class ChatbotDataset(Dataset):
         response_A = item['response_a']
         response_B = item['response_b']
 
-        label = 0 if item['winner_model_a'] else 1 if item['winner_model_b'] else 2
+        if not self.test:
+            label = 0 if item['winner_model_a'] else 1 if item['winner_model_b'] else 2
+        else:
+            label = 0
         # Tokenize inputs
         inputs = self.tokenizer(prompt, response_A, response_B,
                                 padding='max_length', max_length=self.max_length,
