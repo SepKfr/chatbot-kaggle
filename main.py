@@ -10,7 +10,7 @@ test_df = pd.read_csv('test.csv')
 
 class ChatbotDataset(Dataset):
 
-    def __init__(self, data, tokenizer, test=False, max_length=384):
+    def __init__(self, data, tokenizer, test=False, max_length=512):
         self.data = data
         self.tokenizer = tokenizer
         self.max_length = max_length
@@ -130,9 +130,9 @@ with torch.no_grad():
         labels = batch['labels'].to(device)
 
         outputs = model(input_ids, attention_mask=attention_mask, labels=labels)
-        probs = outputs.logits
+        probs = torch.softmax(outputs.logits, dim=1)
 
-        rows.append([id_q, probs[0][0], probs[0][1], probs[0][2]])
+        rows.append([id_q, probs[0][0].item(), probs[0][1].item(), probs[0][2].item()])
 
 
 submission_df = pd.DataFrame(rows, columns=['id', 'winner_model_a', 'winner_model_b', 'winner_tie'])
