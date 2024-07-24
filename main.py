@@ -47,13 +47,13 @@ class ChatbotDataset(Dataset):
         }
 
 
-tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/Meta-Llama-3-8B")
 
 id2label = {0: "winner_model_a", 1: "winner_model_b", 2: "winner_tie"}
 label2id = {"winner_model_a": 0, "winner_model_b": 1, "winner_tie": 2}
 
 
-model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased",
+model = AutoModelForSequenceClassification.from_pretrained("meta-llama/Meta-Llama-3-8B",
                                                            num_labels=3,
                                                            id2label=id2label,
                                                            label2id=label2id)
