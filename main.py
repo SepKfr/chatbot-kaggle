@@ -53,7 +53,10 @@ id2label = {0: "winner_model_a", 1: "winner_model_b", 2: "winner_tie"}
 label2id = {"winner_model_a": 0, "winner_model_b": 1, "winner_tie": 2}
 
 
-model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=3)
+model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased",
+                                                           num_labels=3,
+                                                           id2label=id2label,
+                                                           label2id=label2id)
 
 # Unfreeze the specified parameters
 for name, param in model.named_parameters():
