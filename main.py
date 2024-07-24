@@ -73,7 +73,7 @@ model.to(device)
 optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=5e-5)
 
 # Training loop
-num_epochs = 1
+num_epochs = 5
 for epoch in range(num_epochs):
 
     model.train()
@@ -132,7 +132,7 @@ with torch.no_grad():
         outputs = model(input_ids, attention_mask=attention_mask, labels=labels)
         probs = torch.softmax(outputs.logits, dim=1)
 
-        rows.append([id_q, probs[0][0].item(), probs[0][1].item(), probs[0][2].item()])
+        rows.append([id_q.item(), probs[0][0].item(), probs[0][1].item(), probs[0][2].item()])
 
 
 submission_df = pd.DataFrame(rows, columns=['id', 'winner_model_a', 'winner_model_b', 'winner_tie'])
