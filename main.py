@@ -43,8 +43,8 @@ class ChatbotDataset(Dataset):
         }
 
 
-tokenizer = AutoTokenizer.from_pretrained("")
-model = AutoModelForSequenceClassification.from_pretrained("", num_labels=3)
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/Prompt-Guard-86M")
+model = AutoModelForSequenceClassification.from_pretrained("meta-llama/Prompt-Guard-86M", num_labels=3)
 
 # Unfreeze the specified parameters
 for name, param in model.named_parameters():
