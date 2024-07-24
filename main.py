@@ -61,7 +61,7 @@ for name, param in model.named_parameters():
 train_df, val_df = train_test_split(df, test_size=0.3, random_state=1234)
 train_dataset = ChatbotDataset(train_df, tokenizer)
 val_dataset = ChatbotDataset(val_df, tokenizer)
-test_dataset = ChatbotDataset(test_df, tokenizer)
+test_dataset = ChatbotDataset(test_df, tokenizer, test=True)
 
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=32)
