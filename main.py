@@ -131,9 +131,8 @@ with torch.no_grad():
 
         outputs = model(input_ids, attention_mask=attention_mask, labels=labels)
         probs = outputs.logits
-        print(probs.shape)
 
-        rows.append([id_q, probs[0], probs[1], probs[2]])
+        rows.append([id_q, probs[0][0], probs[0][1], probs[0][2]])
 
 
 submission_df = pd.DataFrame(rows, columns=['id', 'winner_model_a', 'winner_model_b', 'winner_tie'])
