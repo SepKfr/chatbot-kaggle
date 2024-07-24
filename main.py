@@ -73,7 +73,7 @@ model.to(device)
 optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=5e-5)
 
 # Training loop
-num_epochs = 5
+num_epochs = 1
 for epoch in range(num_epochs):
 
     model.train()
@@ -131,6 +131,7 @@ with torch.no_grad():
 
         outputs = model(input_ids, attention_mask=attention_mask, labels=labels)
         probs = outputs.logits
+        print(probs.shape)
 
         rows.append([id_q, probs[0], probs[1], probs[2]])
 
