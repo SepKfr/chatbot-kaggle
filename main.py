@@ -48,6 +48,11 @@ class ChatbotDataset(Dataset):
 
 
 tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
+
+id2label = {0: "winner_model_a", 1: "winner_model_b", 2: "winner_tie"}
+label2id = {"winner_model_a": 0, "winner_model_b": 1, "winner_tie": 2}
+
+
 model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=3)
 
 # Unfreeze the specified parameters
@@ -58,7 +63,7 @@ for name, param in model.named_parameters():
         param.requires_grad = False
 
 # Prepare dataset and dataloaders
-train_df, val_df = train_test_split(df, test_size=0.8, random_state=1234)
+train_df, val_df = train_test_split(df, test_size=0.1, random_state=1234)
 train_dataset = ChatbotDataset(train_df, tokenizer)
 val_dataset = ChatbotDataset(val_df, tokenizer)
 test_dataset = ChatbotDataset(test_df, tokenizer, test=True)
